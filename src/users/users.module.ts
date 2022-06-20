@@ -1,3 +1,4 @@
+import { CartsModule } from './../carts/carts.module';
 import { Module } from "@nestjs/common";
 import { UsersController } from "./users.controller";
 import { UsersService } from "./users.service";
@@ -10,6 +11,7 @@ import { JwtModule } from '@nestjs/jwt';
     imports: [
         MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
         JwtModule.register(configService.getJwtConfig()),
+        CartsModule
     ],
     controllers: [UsersController],
     providers: [UsersService],

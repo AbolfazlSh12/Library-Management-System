@@ -19,7 +19,7 @@ export class BooksService {
         return await this.bookModel.find().exec();
     }
 
-    async findById(bookId: string): Promise<Book> {
+    async findById(bookId: string): Promise<BookDocument> {
         const book = await this.bookModel.findOne({ _id: bookId }).exec();
         if (!book) {
             throw new NotFoundException;

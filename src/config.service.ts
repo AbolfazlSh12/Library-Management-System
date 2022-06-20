@@ -1,6 +1,5 @@
 import { JwtModuleOptions } from '@nestjs/jwt';
 import * as dotenv from 'dotenv';
-import * as fs from 'fs';
 dotenv.config();
 
 class ConfigService {
@@ -25,8 +24,8 @@ class ConfigService {
 
     public getMailAuth = (): { user: string; pass: string } => {
         return {
-            pass: this.getValue('MAIL_PASSWORD'),
             user: this.getValue('MAIL_USERNAME'),
+            pass: this.getValue('MAIL_PASSWORD'),
         };
     };
 
@@ -47,12 +46,21 @@ class ConfigService {
             },
         };
     };
+
+    public getOwnerAuth = (): { username: string; password: string } => {
+        return {
+            username: this.getValue('OWNER_USERNAME'),
+            password: this.getValue('OWNER_PASSWORD'),
+        };
+    };
 }
 
 const configService = new ConfigService(process.env).ensureValues([
     'MAIL_HOST',
-    'MAIL_PASSWORD',
     'MAIL_USERNAME',
+    'MAIL_PASSWORD',
+    'OWNER_USERNAME',
+    'OWNER_PASSWORD',
     'JWT_SECRET',
     'JWT_EXPIRE_IN'
 ]);

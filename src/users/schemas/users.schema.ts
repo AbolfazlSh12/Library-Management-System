@@ -9,9 +9,9 @@ export enum Role {
     Owner = 'Owner',
 }
 
-@Schema()
+@Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
 export class User {
-    @Prop()
+    @Prop({ unique: true, required: true, index: true })
     username: string;
 
     @Prop()
@@ -29,12 +29,14 @@ export class User {
     @Prop({ default: false })
     isVerified: boolean;
 
-    @Prop()
-    verifyEmailToken: string;
-
     @Prop({ default: Role.User })
     role: Role;
 
+    @Prop()
+    verifyEmailToken: string;
+
+    @Prop()
+    userCode: number;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

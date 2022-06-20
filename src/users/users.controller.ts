@@ -1,10 +1,9 @@
+import { ResetPasswordDto } from './dto/reset-password.dto';
 import { Controller, Post, Get, Patch, Delete, Body, Param } from "@nestjs/common";
 import { UserCreateDto } from "./dto/user-create.dto";
 import { UserUpdateDto } from "./dto/user-update.dto";
 import { UsersService } from "./users.service";
 import { UserLoginDto } from "./dto/user-login.dto";
-import { UserLoginRo } from "./dto/user-login.ro";
-import { VerifyDto } from "./dto/user-verify.dto";
 
 @Controller('users')
 
@@ -14,18 +13,35 @@ export class UsersController {
     @Post()
     async addUser(@Body() userCreateDto: UserCreateDto) {
         await this.userservice.create(userCreateDto);
-        await this.userservice.sendVerificationEmail(userCreateDto);
     }
 
-    @Get('verifyEmail')
-    async verifyEmail(@Body() verifyDto: VerifyDto) {
-        return await this.userservice.verifyEmail(verifyDto);
+    @Get('verifyEmail/:username/:token')
+    async verifyEmail(
+        @Param('username') username: string,
+        @Param('token') code: string
+    ) {
+        return await this.userservice.verifyEmail({ username, code });
+    }
+
+    @Post('resetPasswordRequest')
+    async mailResetPassword(@Body('email') email: string) {
+        return await this.userservice.sendMailResetPassword(email);
+    }
+
+    @Post('resetPassword')
+    async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
+        return await this.userservice.resetPassword(resetPasswordDto);
     }
 
     @Post('login')
     async login(@Body() userLoginDto: UserLoginDto) {
         this.userservice.verify(userLoginDto)
         return await this.userservice.login(userLoginDto);
+    }
+
+    @Post('loginOwner')
+    async loginOwner(@Body() userLoginDto: UserLoginDto) {
+        return await this.userservice.loginOwner(userLoginDto);
     }
 
     @Get()
