@@ -1,3 +1,5 @@
+import { ApiProperty } from '@nestjs/swagger';
 export class ownerLoginRo {
-    token: string;
+    @ApiProperty()
+    public token: string;
 }
