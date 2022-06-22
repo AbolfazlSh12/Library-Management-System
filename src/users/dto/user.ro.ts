@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
-import { Role } from 'src/users/schemas/users.schema';
+import { Role } from 'src/users/schemas/role.enum';
 
 export class UserRo {
     @Expose()

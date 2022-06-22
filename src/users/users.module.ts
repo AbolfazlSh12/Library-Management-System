@@ -1,3 +1,4 @@
+import { RolesGuard } from './roles.guard';
 import { CartsModule } from './../carts/carts.module';
 import { Module } from "@nestjs/common";
 import { UsersController } from "./users.controller";
@@ -6,6 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './schemas/users.schema';
 import { configService } from '../config.service';
 import { JwtModule } from '@nestjs/jwt';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
     imports: [
@@ -14,7 +16,12 @@ import { JwtModule } from '@nestjs/jwt';
         CartsModule
     ],
     controllers: [UsersController],
-    providers: [UsersService],
+    providers: [UsersService,
+        {
+            provide: APP_GUARD,
+            useClass: RolesGuard
+        }
+    ],
     exports: [UsersService]
 })
 

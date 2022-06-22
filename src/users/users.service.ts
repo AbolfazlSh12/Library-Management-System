@@ -1,5 +1,5 @@
 import { CartsService } from './../carts/carts.service';
-import { Role } from 'src/users/schemas/users.schema';
+import { Role } from 'src/users/schemas/role.enum';
 import { UserLoginRo } from './dto/user-login.ro';
 import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common/';
 import { Model } from 'mongoose';
@@ -150,7 +150,6 @@ export class UsersService {
             throw new NotFoundException();
         }
 
-        console.log('Successfully logged in Owner');
         return {
             token: await this.jwtService.signAsync({ username, userRole: Role.Owner }),
         }
