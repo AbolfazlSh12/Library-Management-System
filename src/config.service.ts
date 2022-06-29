@@ -41,9 +41,9 @@ class ConfigService {
     public getJwtConfig = (): JwtModuleOptions => {
         return {
             secret: this.getValue('JWT_SECRET', true),
-            signOptions: {
+            /* signOptions: {
                 expiresIn: this.getValue('JWT_EXPIRE_IN', false) || '60m',
-            },
+            }, */
         };
     };
 

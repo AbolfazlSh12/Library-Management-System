@@ -3,8 +3,9 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class UserLoginRo {
     @ApiProperty()
+    public readonly user: UserRo;
+    
+    @ApiProperty()
     public readonly token: string;
 
-    @ApiProperty()
-    public readonly user: UserRo;
 }

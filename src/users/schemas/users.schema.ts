@@ -21,6 +21,9 @@ export class User {
     @Prop()
     password: string;
 
+    @Prop()
+    salt: string;
+    
     @Prop({ default: false })
     isVerified: boolean;
 

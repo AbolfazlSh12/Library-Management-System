@@ -19,7 +19,7 @@ export class UserRo {
     @ApiProperty()
     public readonly email: string;
 
-    @Expose({ name: 'roles' })
+    @Expose({ name: 'role' })
     @ApiProperty()
     public readonly role: Role;
 
